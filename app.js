@@ -19,8 +19,10 @@ app.set('view engine', 'ejs');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
+require('dotenv').config();
 
-mongoose.connect("mongodb+srv://admin-aryan:Aryan231@cluster0.rveiwyr.mongodb.net/blogDB", { useNewUrlParser: true });
+mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true });
+
 
 const postSchema = {
   title: String,
@@ -103,7 +105,7 @@ app.get("/home", function (req, res) {
     Post.find({ user: req.user._id })
       .then(posts => {
         res.render("home", {
-          startingContent: homeStartingContent,
+          homeStartingContent: homeStartingContent,
           posts: posts,
           user: req.user
         });
