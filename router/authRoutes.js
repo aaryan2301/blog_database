@@ -4,14 +4,6 @@ const passport = require("../public/passport");
 const bcrypt = require("bcrypt");
 const {Post, User} = require("../public/models/model.js");
 
-authRouter.get("/", function (req, res) {
-    if (req.isAuthenticated()) {
-      res.redirect("/home");
-    } else {
-      res.render("authenticate");
-    }
-});
-
 authRouter.post("/delete-account", function(req, res) {
       const userId = req.user._id;
       // Delete all posts associated with the user
@@ -27,7 +19,7 @@ authRouter.post("/delete-account", function(req, res) {
               return res.status(500).send("An error occurred");
             }
             // Redirect to the home page or a confirmation page
-            res.redirect("/auth"); // Replace "/" with the desired destination URL
+            res.redirect("/"); // Replace "/" with the desired destination URL
           });
         })
         .catch(err => {
@@ -46,7 +38,7 @@ authRouter.post("/delete-account", function(req, res) {
         console.log(err);
         return res.status(500).send("An error occurred");
       }
-      res.redirect('/auth');
+      res.redirect('/');
     });
   });
   
