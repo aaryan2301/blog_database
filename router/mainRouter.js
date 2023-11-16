@@ -6,9 +6,7 @@ const homeStartingContent = "Welcome to Daily Journal: Your personal sanctuary f
 const aboutContent = "At Daily Journal, our mission is to empower individuals in their personal growth journey through the practice of journaling. We provide a safe and private space for self-reflection, self-expression, and personal development.";
 const contactContent = "Reach out to us for any inquiries, feedback, or collaboration opportunities. Connect with us today!";
 
-mainRouter.get("/home", function (req, res) {
-    if (req.isAuthenticated()) {
-        
+mainRouter.get("/home", function (req, res) {    
       Post.find({ user: req.user._id })
         .then(posts => {
           res.render("home", {
@@ -21,9 +19,6 @@ mainRouter.get("/home", function (req, res) {
           console.log(err);
           res.status(500).send("An error occurred");
         });
-    } else {
-      res.render("home");
-    }
   });
 
   mainRouter.get("/about", function (req, res) {

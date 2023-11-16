@@ -6,18 +6,14 @@ const {Post, User} = require("../public/models/model.js");
 
 authRouter.get("/", function (req, res) {
     if (req.isAuthenticated()) {
-        
       res.redirect("/home");
     } else {
-        
       res.render("authenticate");
     }
-  });
+});
 
 authRouter.post("/delete-account", function(req, res) {
-    if (req.isAuthenticated()) {
       const userId = req.user._id;
-  
       // Delete all posts associated with the user
       Post.deleteMany({ user: userId })
         .then(() => {
@@ -38,9 +34,6 @@ authRouter.post("/delete-account", function(req, res) {
           console.log(err);
           res.status(500).send("An error occurred");
         });
-    } else {
-      res.redirect("/login");
-    }
   });
 
   authRouter.get("/login", function (req, res) {
